@@ -16,9 +16,13 @@ public class Martinetti
     public void simulateGame(){
         do{
             for(Player player:players){
-                
+                takeTurn(rollDice(), player);
+                if(checkForWinner()){
+                    player.win();
+                    return;
+                }
             }
-        }while(checkForWinner());
+        }while(!checkForWinner());
     }
     
     private int[] rollDice(){
@@ -37,32 +41,56 @@ public class Martinetti
     
     private boolean checkForWinner(){
         for(Player player:players){
-            if(player.checkBoard()==24){
-                player.win();
-                player.toString();
+            if(player.checkBoard()==23){
+                System.out.println(player.toString());
+                players.get(0).reset();
+                players.get(1).reset();
+                players.get(2).reset();
                 return true;
             }
         }
         return false;
     }
     
-    private void crossBox(int[] numbers, Player player){
+    private void takeTurn(int[] numbers, Player player){
+        boolean found = false;
+        String squaresCrossed = " ";
+        System.out.println(player.name + "'s" + " turn!");
         do{
             int j = player.checkBoard();
-            boolean found = false;
-            for(int i = 0;i<numbers.length;i++){
-                if(numbers[i] == j&&!found){
-                    player.clearSquare(j);
-                    found = true;
+            //System.out.println(j);
+            found = false;
+            //System.out.println("Reached do-while");
+            if(j<12){
+                for(int i = 0;i<numbers.length;i++){
+                    //System.out.println("Reached for loop");
+                    if(numbers[i] == j + 1&&!found){
+                        //System.out.println("Reached if statement");
+                        player.clearSquare(j);
+                        found = true;
+                        squaresCrossed += (j+1) + ", ";
+                    }
+                }
+            }else{
+                for(int i = 0;i<numbers.length;i++){
+                    //System.out.println("Reached for loop");
+                    if(numbers[i] == 24-j &&!found){
+                        //System.out.println("Reached if statement");
+                        player.clearSquare(j);
+                        found = true;
+                        squaresCrossed += (j+1) + ", ";
+                    }
                 }
             }
-        }while(true);
+        }while(found && player.checkBoard()!=11 && player.checkBoard() != 23);
+        if(squaresCrossed.equals(" ")){
+            System.out.println(player.name + " didn't cross off any squares. Bummer!");
+        }else if(squaresCrossed.length() == 4||squaresCrossed.length()==5){
+            System.out.println(player.name+" crossed off square" + 
+                squaresCrossed.replace(", ", "") + ".");
+        }else{
+            System.out.println(player.name+" crossed off squares" + squaresCrossed + ".");
+        }
     }
     
-    private void takeTurn(Player player){
-        boolean keepGoing = true;
-        do{
-            crossBox(rollDice(), player);
-        }while(keepGoing);
-    }
 }

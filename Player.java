@@ -5,11 +5,13 @@ public class Player{
     public Player(){
         name = "Craig Daniels";
         numGamesWon = 0;
+        System.out.println("Craig Daniels is now playing.");
     }
     
     public Player(String _name){
         name = _name;
         numGamesWon = 0;
+        System.out.println(name + " is now playing.");
     }
 
     public int checkBoard(){
@@ -23,13 +25,21 @@ public class Player{
     
     public void win(){
         numGamesWon++;
+        //System.out.println(name + " has won the game!");
     }
     
     public void clearSquare(int index){
+        //System.out.println(name + " has crossed off square " + (index+1));
         board[index] = true;
     }
     
     public String toString(){
         return name + " has won " + numGamesWon + " games.";
+    }
+    
+    public void reset(){
+        for (int i = 0;i<24;i++){
+            board[i] = false;
+        }
     }
 }
