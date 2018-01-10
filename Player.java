@@ -25,7 +25,8 @@ public class Player{
     
     public void win(){
         numGamesWon++;
-        //System.out.println(name + " has won the game!");
+        System.out.println(name + " has won the game!");
+        //System.out.println(toString());
     }
     
     public void clearSquare(int index){

@@ -19,6 +19,9 @@ public class Martinetti
                 takeTurn(rollDice(), player);
                 if(checkForWinner()){
                     player.win();
+                    System.out.println(players.get(0).toString());
+                    System.out.println(players.get(1).toString());
+                    System.out.println(players.get(2).toString());
                     return;
                 }
             }
@@ -42,7 +45,6 @@ public class Martinetti
     private boolean checkForWinner(){
         for(Player player:players){
             if(player.checkBoard()==23){
-                System.out.println(player.toString());
                 players.get(0).reset();
                 players.get(1).reset();
                 players.get(2).reset();

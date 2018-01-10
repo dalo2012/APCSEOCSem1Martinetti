@@ -31,7 +31,7 @@ public class Test
             System.out.println("Play Again? (y/n)");
             response = scan.next();
         }while(response.equals("y")); 
-        
+        System.out.println("Thanks for playing!!");
         
         //System.out.println(die1.toString());
         //System.out.println(die2.toString());
